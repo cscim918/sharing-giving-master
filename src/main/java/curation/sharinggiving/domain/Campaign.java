@@ -12,7 +12,7 @@ import static javax.persistence.FetchType.EAGER;
 @Table(name = "campaigns")
 @Getter @Setter
 @NoArgsConstructor
-public class Campaign {
+public class Campaign extends BaseTimeEnitiy{
     @Id @GeneratedValue // GeneratedValue 세팅 시 id 값이 항상 생성 보장
     @Column(name = "camp_id")
     private Long id;

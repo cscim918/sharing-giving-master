@@ -10,7 +10,7 @@ import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Getter @Setter
-public class Hashtag {
+public class Hashtag extends BaseTimeEnitiy{
 
     @Id @GeneratedValue
     @Column(name = "tag_id")

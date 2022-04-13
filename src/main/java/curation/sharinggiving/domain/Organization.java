@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-public class Organization {
+public class Organization extends BaseTimeEnitiy{
 
     @Id @GeneratedValue
     @Column(name = "org_id")
