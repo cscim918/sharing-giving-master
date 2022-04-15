@@ -19,6 +19,7 @@ public class InitDB {
     @PostConstruct
     public void init() {
         initService.dbInit1();
+        initService.dbInit2();
     }
 
     @Component
@@ -36,6 +37,17 @@ public class InitDB {
             em.persist(hashtag);
 
             Campaign campaign = new Campaign("campaign1", "dsdasdsa", "Sharing", "2016-02-23", "2016-03-23", "hi", organization, hashtag);
+            em.persist(campaign);
+        }
+
+        public void dbInit2() {
+            Organization organization = new Organization("We are the wolrd", "zxczxcxzczc", "sadads", "wqewqdasdada");
+            em.persist(organization);
+
+            Hashtag hashtag = new Hashtag("재해 지원");
+            em.persist(hashtag);
+
+            Campaign campaign = new Campaign("campaign2", "dsdasdsa", "Sharing", "2016-02-23", "2016-03-23", "bye", organization, hashtag);
             em.persist(campaign);
         }
     }

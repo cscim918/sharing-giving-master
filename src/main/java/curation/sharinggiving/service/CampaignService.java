@@ -34,8 +34,9 @@ public class CampaignService {
         return new CampaignListResponseDto(entity);
     }
 
+    @Transactional(readOnly = true)
     public List<CampaignListResponseDto> findByTitle(String keyword) {
-        return campaignRepository.findByTitleContaining(keyword)
+        return campaignRepository.findByTitle(keyword)
                 .stream()
                 .map(CampaignListResponseDto::new)
                 .collect(Collectors.toList());

@@ -4,6 +4,7 @@ import curation.sharinggiving.domain.Campaign;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -11,22 +12,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Repository
-//@RequiredArgsConstructor
 public interface CampaignRepository extends JpaRepository<Campaign, Long> {
 
     @Query("select c from Campaign c join c.organization")
     List<Campaign> findAllDesc();
 
-//    private final EntityManager em;
-//
-//    @Query("select c from Campaign c join c.organization o")
-//    List<Campaign> findAllDesc();
-//
-//    @Query(value="select c from Campaign c join c.organization o where c.title LIKE %:title%")
-//    List<Campaign> findAllSearchContaining(String keyword);
-//
-    List<Campaign> findByTitleContaining(String title);
+    @Query(value="select c from Campaign c join c.organization o where c.title LIKE %:title%")
+    List<Campaign> findByTitle(@Param("title") String keyword);
+
+//    @Query(value = "select h from Hashtag h join Campaign h on c.hashtag = h.id where h.tagName = %:tagName%")
+//    List<Campaign> findByTitle(String tagName);
+
 //
 //    public void save(Campaign campaign){ // 등록
 //        em.persist(campaign);
@@ -45,46 +41,5 @@ public interface CampaignRepository extends JpaRepository<Campaign, Long> {
 //        return em.createQuery("select c from Campaign c join c.organization o where c.title LIKE %:title%", Campaign.class)
 //                .setParameter("title", title)
 //                .getResultList();
-//    }
-
-//    public List<Campaign> findAllByString(Search search){
-//
-//        String jpql = "select c from Campaign c join c.organization o";
-//        boolean isFirstCondition = true;
-//
-//        // 캠페인 이름 검색
-//        if (StringUtils.hasText(search.getCampName())){
-//            if (isFirstCondition) {
-//                jpql += " where";
-//                isFirstCondition = false;
-//            } else {
-//                jpql += " and";
-//            }
-//            jpql += " c.title like :title";
-//        }
-//
-//        // 기부단체 이름 검색
-//        if (StringUtils.hasText(search.getOrgName())){
-//            if (isFirstCondition) {
-//                jpql += " where";
-//                isFirstCondition = false;
-//            } else {
-//                jpql += " and";
-//            }
-//            jpql += " o.name like :name";
-//        }
-//
-//        TypedQuery<Campaign> query = em.createQuery(jpql, Campaign.class)
-//                .setMaxResults(1000);
-//
-//        if (StringUtils.hasText(search.getCampName())) {
-//            query = query.setParameter("title", search.getCampName());
-//        }
-//
-//        if (StringUtils.hasText(search.getOrgName())) {
-//            query = query.setParameter("name", search.getOrgName());
-//        }
-//
-//        return query.getResultList();
 //    }
 }
