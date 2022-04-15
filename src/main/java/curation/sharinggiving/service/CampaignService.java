@@ -1,6 +1,7 @@
 package curation.sharinggiving.service;
 
 import curation.sharinggiving.controller.dto.CampaignListResponseDto;
+import curation.sharinggiving.controller.dto.CampaignSaveRequestDto;
 import curation.sharinggiving.domain.Campaign;
 import curation.sharinggiving.repository.CampaignRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,23 +17,29 @@ public class CampaignService {
     private final CampaignRepository campaignRepository;
 
     @Transactional(readOnly = true)
-    public List<CampaignListResponseDto> findAllDesc(){
+    public List<CampaignListResponseDto> findAllDesc() {
         return campaignRepository.findAllDesc().stream()
                 .map(CampaignListResponseDto::new)
                 .collect(Collectors.toList());
     }
 
-    public CampaignListResponseDto findById (Long id){
+    @Transactional
+    public Long save(CampaignSaveRequestDto requestDto){
+        return campaignRepository.save(requestDto.toEntity()).getId();
+    }
+
+    public CampaignListResponseDto findById(Long id) {
         Campaign entity = campaignRepository.findById(id)
-                .orElseThrow(()-> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
         return new CampaignListResponseDto(entity);
     }
 
-//    public List<CampaignsListResponseDto> searchCampaigns(String keyword) {
-//        return campaignRepository.findAllSearch(keyword).stream()
-//                .map(CampaignsListResponseDto::new)
-//                .collect(Collectors.toList());
-//    }
+    public List<CampaignListResponseDto> findByTitle(String keyword) {
+        return campaignRepository.findByTitleContaining(keyword)
+                .stream()
+                .map(CampaignListResponseDto::new)
+                .collect(Collectors.toList());
+    }
 
     // 캠페인 카드 등록
 //    @Transactional

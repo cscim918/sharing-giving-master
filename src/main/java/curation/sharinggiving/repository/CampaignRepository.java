@@ -15,7 +15,7 @@ import java.util.List;
 //@RequiredArgsConstructor
 public interface CampaignRepository extends JpaRepository<Campaign, Long> {
 
-    @Query("SELECT c FROM Campaign c ORDER BY c.id DESC")
+    @Query("select c from Campaign c join c.organization")
     List<Campaign> findAllDesc();
 
 //    private final EntityManager em;
@@ -26,7 +26,7 @@ public interface CampaignRepository extends JpaRepository<Campaign, Long> {
 //    @Query(value="select c from Campaign c join c.organization o where c.title LIKE %:title%")
 //    List<Campaign> findAllSearchContaining(String keyword);
 //
-    List<Campaign> findByTitleContaining(String keyword);
+    List<Campaign> findByTitleContaining(String title);
 //
 //    public void save(Campaign campaign){ // 등록
 //        em.persist(campaign);

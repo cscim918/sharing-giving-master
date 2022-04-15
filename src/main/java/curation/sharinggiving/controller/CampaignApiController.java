@@ -1,13 +1,12 @@
 package curation.sharinggiving.controller;
 
 import curation.sharinggiving.controller.dto.CampaignListResponseDto;
+import curation.sharinggiving.controller.dto.CampaignSaveRequestDto;
 import curation.sharinggiving.domain.Campaign;
 import curation.sharinggiving.repository.CampaignRepository;
 import curation.sharinggiving.service.CampaignService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,9 +33,20 @@ public class CampaignApiController {
 //        return all;
 //    }
 
-    @GetMapping("/api/v4/campaigns/{id}")
-    public CampaignListResponseDto findByCampaign(@PathVariable Long id){
-        return campaignService.findById(id);
+    @GetMapping("/api/v4/campaigns")
+    public List<Campaign> findByCampaign(@RequestParam(value = "keyword") String keyword){
+        List<Campaign> all = campaignRepository.findByTitleContaining(keyword);
+        return all;
+    }
+
+    @PostMapping("/api/v1/campaigns")
+    public Long save(@RequestBody CampaignSaveRequestDto requestDto) {
+        return campaignService.save(requestDto);
+    }
+
+    @GetMapping("/api/v3/campaigns")
+    public List<CampaignListResponseDto> findAllDesc(){
+        return campaignService.findAllDesc();
     }
 
 }

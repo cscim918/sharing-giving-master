@@ -1,18 +1,20 @@
 package curation.sharinggiving.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
+import java.time.LocalDateTime;
+
 import static javax.persistence.FetchType.EAGER;
 
-@Entity
-@Table(name = "campaigns")
-@Getter @Setter
+@Getter
 @NoArgsConstructor
-public class Campaign extends BaseTimeEnitiy{
+@Entity
+public class Campaign extends BaseTimeEnitiy {
     @Id @GeneratedValue // GeneratedValue 세팅 시 id 값이 항상 생성 보장
     @Column(name = "camp_id")
     private Long id;
@@ -37,23 +39,16 @@ public class Campaign extends BaseTimeEnitiy{
     @JoinColumn(name = "tag_id")
     private Hashtag hashtag;
 
-    // 연관관계 메서드
-    public void setOrganization(Organization organization){
+    //연관관계 & 생성 메서드
+    @Builder
+    public Campaign(String title, String startDate, String closingDate, String campThumbnail, String category, String description, Organization organization, Hashtag hashtag) {
+        this.title = title;
+        this.startDate = startDate;
+        this.closingDate = closingDate;
+        this.campThumbnail = campThumbnail;
+        this.category = category;
+        this.description = description;
         this.organization = organization;
-        organization.getCampaigns().add(this);
-    }
-
-    // 생성 메서드
-    public static Campaign createCampaign(String title, String campThumbnail, String category, String startDate, String closingDate, String description, Organization organization, Hashtag hashtag){
-        Campaign campaign = new Campaign();
-        campaign.setTitle(title);
-        campaign.setCampThumbnail(campThumbnail);
-        campaign.setCategory(category);
-        campaign.setStartDate(startDate);
-        campaign.setClosingDate(closingDate);
-        campaign.setDescription(description);
-        campaign.setOrganization(organization);
-        campaign.setHashtag(hashtag);
-        return campaign;
+        this.hashtag = hashtag;
     }
 }
