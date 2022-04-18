@@ -1,6 +1,7 @@
 package curation.sharinggiving.controller.dto;
 
 import curation.sharinggiving.domain.Campaign;
+import curation.sharinggiving.domain.Category;
 import curation.sharinggiving.domain.Hashtag;
 import curation.sharinggiving.domain.Organization;
 import lombok.Getter;
@@ -12,8 +13,8 @@ public class CampaignListResponseDto {
     private String startDate;
     private String closingDate;
     private String campThumbnail;
-    private String category;
-    private String description;
+    private Category category;
+    private String content;
     private Organization organization;
     private Hashtag hashtag;
 
@@ -24,7 +25,7 @@ public class CampaignListResponseDto {
         this.closingDate = campaign.getClosingDate();
         this.campThumbnail = campaign.getCampThumbnail();
         this.category = campaign.getCategory();
-        this.description = campaign.getDescription();
+        this.content = campaign.getContent();
         this.organization = campaign.getOrganization();
         this.hashtag = campaign.getHashtag();
     }

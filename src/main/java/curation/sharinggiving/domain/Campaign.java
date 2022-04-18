@@ -27,9 +27,9 @@ public class Campaign extends BaseTimeEnitiy {
 
     private String campThumbnail;
 
-    private String category;
+    private Category category;
 
-    private String description;
+    private String content;
 
     @ManyToOne(fetch = EAGER)
     @JoinColumn(name="org_id")
@@ -41,13 +41,13 @@ public class Campaign extends BaseTimeEnitiy {
 
     //연관관계 & 생성 메서드
     @Builder
-    public Campaign(String title, String startDate, String closingDate, String campThumbnail, String category, String description, Organization organization, Hashtag hashtag) {
+    public Campaign(String title, String startDate, String closingDate, String campThumbnail, Category category, String content, Organization organization, Hashtag hashtag) {
         this.title = title;
         this.startDate = startDate;
         this.closingDate = closingDate;
         this.campThumbnail = campThumbnail;
         this.category = category;
-        this.description = description;
+        this.content = content;
         this.organization = organization;
         this.hashtag = hashtag;
     }

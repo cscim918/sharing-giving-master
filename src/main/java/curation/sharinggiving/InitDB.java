@@ -1,6 +1,7 @@
 package curation.sharinggiving;
 
 import curation.sharinggiving.domain.Campaign;
+import curation.sharinggiving.domain.Category;
 import curation.sharinggiving.domain.Hashtag;
 import curation.sharinggiving.domain.Organization;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class InitDB {
     public void init() {
         initService.dbInit1();
         initService.dbInit2();
+        initService.dbInit3();
     }
 
     @Component
@@ -30,24 +32,35 @@ public class InitDB {
         private final EntityManager em;
 
         public void dbInit1() {
-            Organization organization = new Organization("Save the Children", "zxczxcxzczc", "sadads", "wqewqdasdada");
+            Organization organization = new Organization("세이브 더 칠드런", "zxczxcxzczc", "sadads", "wqewqdasdada");
             em.persist(organization);
 
-            Hashtag hashtag = new Hashtag("교육 후원");
+            Hashtag hashtag = new Hashtag("아동 지원");
             em.persist(hashtag);
 
-            Campaign campaign = new Campaign("campaign1", "dsdasdsa", "Sharing", "2016-02-23", "2016-03-23", "hi", organization, hashtag);
+            Campaign campaign = new Campaign("국내 저소득가정 아동 지원", "dsdasdsa", "Sharing", "2016-02-23", Category.SHARING, "hi", organization, hashtag);
             em.persist(campaign);
         }
 
         public void dbInit2() {
-            Organization organization = new Organization("We are the wolrd", "zxczxcxzczc", "sadads", "wqewqdasdada");
+            Organization organization = new Organization("푸르메재단", "zxczxcxzczc", "sadads", "wqewqdasdada");
             em.persist(organization);
 
             Hashtag hashtag = new Hashtag("재해 지원");
             em.persist(hashtag);
 
-            Campaign campaign = new Campaign("campaign2", "dsdasdsa", "Sharing", "2016-02-23", "2016-03-23", "bye", organization, hashtag);
+            Campaign campaign = new Campaign("우크라이나 긴급구호", "dsdasdsa", "Sharing", "2016-02-23", Category.SHARING, "bye", organization, hashtag);
+            em.persist(campaign);
+        }
+
+        public void dbInit3() {
+            Organization organization = new Organization("적십자", "zxczxcxzczc", "sadads", "wqewqdasdada");
+            em.persist(organization);
+
+            Hashtag hashtag = new Hashtag("긴급 구호");
+            em.persist(hashtag);
+
+            Campaign campaign = new Campaign("랜선긴급구호", "dsdasdsa", "Sharing", "2016-02-23", Category.GIVING, "bye", organization, hashtag);
             em.persist(campaign);
         }
     }

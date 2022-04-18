@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class OrganizationService {
 
@@ -27,8 +26,8 @@ public class OrganizationService {
         return organizationRepository.findAll();
     }
 
-    // 기부 단체 개별 조회
-    public Organization findOne(Long organizationId){
-        return organizationRepository.findOne(organizationId);
-    }
+//    // 기부 단체 개별 조회
+//    public Organization findOne(Long organizationId){
+//        return organizationRepository.findOne(organizationId);
+//    }
 }

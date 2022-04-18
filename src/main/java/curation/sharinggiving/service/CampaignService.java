@@ -34,7 +34,7 @@ public class CampaignService {
         return new CampaignListResponseDto(entity);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) // 조회 속도 개선
     public List<CampaignListResponseDto> findByTitle(String keyword) {
         return campaignRepository.findByTitle(keyword)
                 .stream()
@@ -42,19 +42,11 @@ public class CampaignService {
                 .collect(Collectors.toList());
     }
 
-    // 캠페인 카드 등록
-//    @Transactional
-//    public Long join(Campaign campaign){
-//        campaignRepository.save(campaign);
-//        return campaign.getId();
-//    }
-//    // 캠페인 전체 조회
-//    public List<Campaign> findCampaings() {
-//        return campaignRepository.findAll();
-//    }
-//
-//    // 캠페인 개별 조회
-//    public Campaign findOne(Long campaignId) {
-//        return campaignRepository.findOne(campaignId);
-//    }
+    @Transactional(readOnly = true)
+    public List<CampaignListResponseDto> findByHashtag(String hashtag) {
+        return campaignRepository.findByHashtag(hashtag)
+                .stream()
+                .map(CampaignListResponseDto::new)
+                .collect(Collectors.toList());
+    }
 }

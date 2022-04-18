@@ -1,19 +1,16 @@
 package curation.sharinggiving.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 import static javax.persistence.FetchType.EAGER;
 
 @Getter
-@Entity
 @NoArgsConstructor
-public class Hashtag extends BaseTimeEnitiy{
+@Entity
+public class Hashtag extends BaseTimeEnitiy {
 
     @Id @GeneratedValue
     @Column(name = "tag_id")
