@@ -1,17 +1,12 @@
 package curation.sharinggiving.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-import java.time.LocalDateTime;
-
 import static javax.persistence.FetchType.EAGER;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 @Entity
 public class Campaign extends BaseTimeEnitiy {
@@ -35,7 +30,7 @@ public class Campaign extends BaseTimeEnitiy {
     @JoinColumn(name="org_id")
     private Organization organization;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = EAGER)
+    @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "tag_id")
     private Hashtag hashtag;
 

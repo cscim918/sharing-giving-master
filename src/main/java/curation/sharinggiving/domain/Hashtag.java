@@ -5,6 +5,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static javax.persistence.FetchType.EAGER;
 
 @Getter
@@ -19,8 +22,8 @@ public class Hashtag extends BaseTimeEnitiy {
     private String tagName;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "hashtag", fetch = EAGER)
-    private Campaign campaign;
+    @OneToMany(mappedBy = "hashtag")
+    private List<Campaign> campaigns = new ArrayList<>();
 
     //생성 메서드
     @Builder

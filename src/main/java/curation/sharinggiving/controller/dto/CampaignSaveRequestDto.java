@@ -2,11 +2,12 @@ package curation.sharinggiving.controller.dto;
 
 import curation.sharinggiving.domain.Campaign;
 import curation.sharinggiving.domain.Category;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import curation.sharinggiving.domain.Hashtag;
+import curation.sharinggiving.domain.Organization;
+import lombok.*;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class CampaignSaveRequestDto {
     private String title;
@@ -15,15 +16,19 @@ public class CampaignSaveRequestDto {
     private String campThumbnail;
     private Category category;
     private String content;
+    private Organization organization;
+    private Hashtag hashtag;
 
     @Builder
-    public CampaignSaveRequestDto(String title, String startDate, String closingDate, String campThumbnail, Category category, String content) {
+    public CampaignSaveRequestDto(String title, String startDate, String closingDate, String campThumbnail, Category category, String content, Organization organization, Hashtag hashtag) {
         this.title = title;
         this.startDate = startDate;
         this.closingDate = closingDate;
         this.campThumbnail = campThumbnail;
         this.category = category;
         this.content = content;
+        this.organization = organization;
+        this.hashtag = hashtag;
     }
 
     public Campaign toEntity() {
@@ -34,6 +39,8 @@ public class CampaignSaveRequestDto {
                 .campThumbnail(campThumbnail)
                 .category(category)
                 .content(content)
+                .organization(organization)
+                .hashtag(hashtag)
                 .build();
     }
 }

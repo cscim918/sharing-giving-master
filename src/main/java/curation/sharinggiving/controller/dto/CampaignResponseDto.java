@@ -7,7 +7,7 @@ import curation.sharinggiving.domain.Organization;
 import lombok.Getter;
 
 @Getter
-public class CampaignListResponseDto {
+public class CampaignResponseDto {
     private Long id;
     private String title;
     private String startDate;
@@ -18,7 +18,7 @@ public class CampaignListResponseDto {
     private Organization organization;
     private Hashtag hashtag;
 
-    public CampaignListResponseDto(Campaign campaign){
+    public CampaignResponseDto(Campaign campaign){
         this.id = campaign.getId();
         this.title = campaign.getTitle();
         this.startDate = campaign.getStartDate();
