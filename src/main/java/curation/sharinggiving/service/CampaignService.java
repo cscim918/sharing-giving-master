@@ -1,12 +1,11 @@
 package curation.sharinggiving.service;
 
-import curation.sharinggiving.controller.dto.CampaignResponseDto;
-import curation.sharinggiving.controller.dto.CampaignSaveRequestDto;
-import curation.sharinggiving.controller.dto.OrganizationHashtagResponseDto;
+import curation.sharinggiving.repository.dto.CampResponseDto;
+import curation.sharinggiving.repository.dto.CampSaveRequestDto;
 import curation.sharinggiving.domain.Campaign;
 import curation.sharinggiving.repository.CampaignRepository;
+import curation.sharinggiving.repository.OrgHashtagRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,15 +17,37 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Slf4j
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class CampaignService {
     private final CampaignRepository campaignRepository;
 
+    @Transactional(readOnly = true)
+    public List<CampResponseDto> findAllCampaigns() { // 캠페인 전체 조회
+        return campaignRepository.findAllCampaigns().stream()
+                .map(CampResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public CampResponseDto findById(Long id) { // 캠페인 개별 조회
+        Campaign entity = campaignRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+        return new CampResponseDto(entity);
+    }
+
+    @Transactional(readOnly = true)
+    public List<CampResponseDto> searchCampaign(String keyword) { // 캠페인 검색
+        return campaignRepository.searchCampaign(keyword, keyword)
+                .stream()
+                .map(CampResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
     @Transactional
-    public Long save(CampaignSaveRequestDto requestDto, MultipartFile multipartFile) {
+    public Long join(CampSaveRequestDto requestDto, MultipartFile multipartFile) {
         try {
+            // 이미지 업로드 부분
             String separ = File.separator;
             String today = new SimpleDateFormat("yyMMdd").format(new Date());
 
@@ -48,49 +69,13 @@ public class CampaignService {
             String filePath = savePath + separ + saveFileName;
             multipartFile.transferTo(new File(filePath));
             Campaign campaign = requestDto.toEntity();
+            // 이미지 파일 위치 저장
             campaign.setCampThumbnail(filePath);
-
+            // 캠페인 데이터 저장
             return campaignRepository.save(campaign).getId();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-    }
-
-    @Transactional(readOnly = true)
-    public List<CampaignResponseDto> findAllCampaigns() { // 캠페인 전체 조회
-        return campaignRepository.findAllCampaigns().stream()
-                .map(CampaignResponseDto::new)
-                .collect(Collectors.toList());
-    }
-
-    public CampaignResponseDto findById(Long id) { // 캠페인 개별 조회
-        Campaign entity = campaignRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        return new CampaignResponseDto(entity);
-    }
-
-    @Transactional(readOnly = true)
-    public List<CampaignResponseDto> findByTitle(String keyword) { // 캠페인 검색
-        return campaignRepository.findByTitle(keyword)
-                .stream()
-                .map(CampaignResponseDto::new)
-                .collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
-    public List<CampaignResponseDto> findByCampaignHashtag(String hashtag) { // 캠페인 해시태그 조회
-        return campaignRepository.findByHashtag(hashtag)
-                .stream()
-                .map(CampaignResponseDto::new)
-                .collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
-    public List<OrganizationHashtagResponseDto> findByOrganizationHashtag(String hashtag) { // 기부단체 해시태그 조회
-        return campaignRepository.findByHashtag(hashtag)
-                .stream()
-                .map(OrganizationHashtagResponseDto::new)
-                .collect(Collectors.toList());
     }
 }

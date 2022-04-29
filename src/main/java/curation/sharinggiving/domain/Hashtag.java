@@ -5,25 +5,18 @@ import lombok.*;
 
 import javax.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static javax.persistence.FetchType.EAGER;
 
-@Getter
-@NoArgsConstructor
 @Entity
+@Getter @Setter
+@NoArgsConstructor
 public class Hashtag extends BaseTimeEnitiy {
 
     @Id @GeneratedValue
-    @Column(name = "tag_id")
+    @Column(name = "hashtag_id")
     private Long id;
 
     private String tagName;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "hashtag")
-    private List<Campaign> campaigns = new ArrayList<>();
 
     //생성 메서드
     @Builder

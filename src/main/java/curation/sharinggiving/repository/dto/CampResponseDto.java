@@ -1,13 +1,14 @@
-package curation.sharinggiving.controller.dto;
+package curation.sharinggiving.repository.dto;
 
 import curation.sharinggiving.domain.Campaign;
 import curation.sharinggiving.domain.Category;
-import curation.sharinggiving.domain.Hashtag;
-import curation.sharinggiving.domain.Organization;
 import lombok.Getter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
-public class CampaignResponseDto {
+public class CampResponseDto {
     private Long id;
     private String title;
     private String startDate;
@@ -15,10 +16,14 @@ public class CampaignResponseDto {
     private String campThumbnail;
     private Category category;
     private String content;
-    private Organization organization;
-    private Hashtag hashtag;
+    private String campLink;
 
-    public CampaignResponseDto(Campaign campaign){
+    private Long orgId;
+    private String orgName;
+
+    private List<CampHashtagResponseDto> hashtags;
+
+    public CampResponseDto(Campaign campaign){
         this.id = campaign.getId();
         this.title = campaign.getTitle();
         this.startDate = campaign.getStartDate();
@@ -26,7 +31,9 @@ public class CampaignResponseDto {
         this.campThumbnail = campaign.getCampThumbnail();
         this.category = campaign.getCategory();
         this.content = campaign.getContent();
-        this.organization = campaign.getOrganization();
-        this.hashtag = campaign.getHashtag();
+        this.campLink = campaign.getCampLink();
+        this.orgId = campaign.getOrganization().getId();
+        this.orgName = campaign.getOrganization().getName();
+        this.hashtags = campaign.getCampaignHashtags().stream().map(CampHashtagResponseDto::new).collect(Collectors.toList());
     }
 }
