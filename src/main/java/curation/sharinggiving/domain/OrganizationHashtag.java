@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -20,12 +19,10 @@ public class OrganizationHashtag {
     @Column(name = "organization_hashtag_id")
     private Long id;
 
-    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "organization_id")
     private Organization organization;
 
-    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "hashtag_id")
     private Hashtag hashtag;
@@ -34,7 +31,6 @@ public class OrganizationHashtag {
     public static OrganizationHashtag createOrganizationHashtag(Hashtag hashtag){
         OrganizationHashtag organizationHashtag = new OrganizationHashtag();
         organizationHashtag.setHashtag(hashtag);
-
         return organizationHashtag;
     }
 }

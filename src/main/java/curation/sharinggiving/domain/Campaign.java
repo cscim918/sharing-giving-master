@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 
-@Entity
 @Getter @Setter
 @NoArgsConstructor
+@Entity
 public class Campaign extends BaseTimeEnitiy {
-    @Id
-    @GeneratedValue // GeneratedValue 세팅 시 id 값이 항상 생성 보장
+    @Id @GeneratedValue // GeneratedValue 세팅 시 id 값이 항상 생성 보장
     @Column(name = "campaign_id")
     private Long id;
 
@@ -24,29 +24,31 @@ public class Campaign extends BaseTimeEnitiy {
 
     private String closingDate;
 
+    @Column(length = 1000)
     private String campThumbnail;
 
     private Category category;
 
-    @Column(length=1000)
+    @Column(length = 1000)
     private String content;
 
+    @Column(length = 1000)
     private String campLink;
 
-    @ManyToOne(fetch = EAGER)
-    @JoinColumn(name = "org_id")
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name="organization_id")
     private Organization organization;
 
     @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
     private List<CampaignHashtag> campaignHashtags = new ArrayList<>();
 
-    //연관관계 메서드
+    // 연관관계 메서드
     public void addCampaignHashtag(CampaignHashtag campaignHashtag) {
         campaignHashtags.add(campaignHashtag);
         campaignHashtag.setCampaign(this);
     }
 
-    //생성 메서드
+    // 생성 메서드
     @Builder
     public Campaign(String title, String startDate, String closingDate, String campThumbnail, Category category, String content, String campLink, Organization organization, CampaignHashtag... campaignHashtags) {
         this.title = title;

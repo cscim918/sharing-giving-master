@@ -19,12 +19,10 @@ public class CampaignHashtag {
     @Column(name = "campaign_hashtag_id")
     private Long id;
 
-    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "campaign_id")
     private Campaign campaign;
 
-    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "hashtag_id")
     private Hashtag hashtag;
@@ -33,7 +31,6 @@ public class CampaignHashtag {
     public static CampaignHashtag createCampaignHashtag(Hashtag hashtag){
         CampaignHashtag campaignHashtag = new CampaignHashtag();
         campaignHashtag.setHashtag(hashtag);
-
         return campaignHashtag;
     }
 }

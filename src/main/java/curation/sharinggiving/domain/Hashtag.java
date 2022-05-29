@@ -7,9 +7,9 @@ import javax.persistence.*;
 
 import static javax.persistence.FetchType.EAGER;
 
-@Entity
 @Getter @Setter
 @NoArgsConstructor
+@Entity
 public class Hashtag extends BaseTimeEnitiy {
 
     @Id @GeneratedValue
