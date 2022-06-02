@@ -1,5 +1,6 @@
 package curation.sharinggiving.service;
 
+import curation.sharinggiving.domain.Hashtag;
 import curation.sharinggiving.repository.CampHashtagRepository;
 import curation.sharinggiving.repository.HashtagRepository;
 import curation.sharinggiving.repository.OrgHashtagRepository;
@@ -56,5 +57,13 @@ public class HashtagService {
         return hashtagRepository.findAllHashtags().stream()
                 .map(HashtagResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public Long saveHashtag(String tag) { // 해시태그 생성
+        Hashtag hashtag = new Hashtag();
+        hashtag.setTagName(tag);
+        hashtagRepository.save(hashtag);
+        return hashtag.getId();
     }
 }

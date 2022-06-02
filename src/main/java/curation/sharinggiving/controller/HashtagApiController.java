@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,12 +35,16 @@ public class HashtagApiController {
         return all;
     }
 
-
     @GetMapping("/api/v1/hashtag") // 캠페인, 기부단체 해시태그 검색
     public Result findByHashtag(@RequestParam(value = "tag") String tag) {
         List<CampHashtagSearchResponseDto> campHashtag = hashtagService.findByCampHashtag(tag);
         List<OrgHashtagSearchResponseDto> orgHashtag = hashtagService.findByOrgHashtag(tag);
         return new Result(campHashtag, orgHashtag);
+    }
+
+    @PostMapping("/api/v1/hashtag") // 해시태그 생성
+    public Long saveHashtag(@RequestParam(value = "tag") String tag){
+        return hashtagService.saveHashtag(tag);
     }
 
     @Data
