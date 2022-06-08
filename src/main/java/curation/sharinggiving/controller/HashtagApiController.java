@@ -18,14 +18,14 @@ public class HashtagApiController {
     private final HashtagService hashtagService;
 
     @GetMapping("/api/v1/hashtags/campaign") // 캠페인 해시태그 전체 조회
-    public List<CampHashtagResponseDto> findAllCampHashtags(){
-        List<CampHashtagResponseDto> all = hashtagService.findAllCampHashtags();
+    public List<HashtagResponseDto> findAllCampHashtags(){
+        List<HashtagResponseDto> all = hashtagService.findAllCampHashtags();
         return all;
     }
 
     @GetMapping("/api/v1/hashtags/organization") // 기부단체 해시태그 전체 조회
-    public List<OrgHashtagResponseDto> findAllOrgHashtags(){
-        List<OrgHashtagResponseDto> all = hashtagService.findAllOrgHashtags();
+    public List<HashtagResponseDto> findAllOrgHashtags(){
+        List<HashtagResponseDto> all = hashtagService.findAllOrgHashtags();
         return all;
     }
 

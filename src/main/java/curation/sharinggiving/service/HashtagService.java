@@ -21,17 +21,17 @@ public class HashtagService {
     private final HashtagRepository hashtagRepository;
 
     @Transactional(readOnly = true)
-    public List<CampHashtagResponseDto> findAllCampHashtags() { // 캠페인 해시태그 전체 조회
-        return campHashtagRepository.findAllCampHashtags().stream()
-                .map(CampHashtagResponseDto::new)
+    public List<HashtagResponseDto> findAllCampHashtags() { // 캠페인 해시태그 전체 조회
+        return hashtagRepository.findAllCampHashtags().stream()
+                .map(Hashtag -> new HashtagResponseDto(Hashtag))
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<OrgHashtagResponseDto> findAllOrgHashtags() { // 기부단체 해시태그 전체 조회
-        return orgHashtagRepository.findAllOrgHashtags()
+    public List<HashtagResponseDto> findAllOrgHashtags() { // 기부단체 해시태그 전체 조회
+        return hashtagRepository.findAllOrgHashtags()
                 .stream()
-                .map(OrgHashtagResponseDto::new)
+                .map(HashtagResponseDto::new)
                 .collect(Collectors.toList());
     }
 
