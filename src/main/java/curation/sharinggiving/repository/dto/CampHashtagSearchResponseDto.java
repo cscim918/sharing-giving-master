@@ -23,7 +23,7 @@ public class CampHashtagSearchResponseDto {
 
 
     public CampHashtagSearchResponseDto(CampaignHashtag campaignHashtag) {
-        this.id = campaignHashtag.getHashtag().getId();
+        this.id = campaignHashtag.getCampaign().getId();
         this.campTitle = campaignHashtag.getCampaign().getTitle();
         this.campStartDate = campaignHashtag.getCampaign().getStartDate();
         this.campClosingDate = campaignHashtag.getCampaign().getClosingDate();
