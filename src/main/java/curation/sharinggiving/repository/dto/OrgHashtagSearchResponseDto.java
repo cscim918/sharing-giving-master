@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 @Getter
 public class OrgHashtagSearchResponseDto {
+    private Long id;
     private String orgName;
     private String orgThumbnail;
     private String description;
@@ -18,6 +19,7 @@ public class OrgHashtagSearchResponseDto {
 
 
     public OrgHashtagSearchResponseDto(OrganizationHashtag organizationHashtag) {
+        this.id = organizationHashtag.getOrganization().getId();
         this.orgName = organizationHashtag.getOrganization().getName();
         this.orgThumbnail = organizationHashtag.getOrganization().getOrgThumbnail();
         this.description = organizationHashtag.getOrganization().getDescription();

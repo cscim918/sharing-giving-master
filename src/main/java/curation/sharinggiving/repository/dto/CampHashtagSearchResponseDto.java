@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 @Getter
 public class CampHashtagSearchResponseDto {
+    private Long id;
     private String campTitle;
     private String campStartDate;
     private String campClosingDate;
@@ -22,6 +23,7 @@ public class CampHashtagSearchResponseDto {
 
 
     public CampHashtagSearchResponseDto(CampaignHashtag campaignHashtag) {
+        this.id = campaignHashtag.getHashtag().getId();
         this.campTitle = campaignHashtag.getCampaign().getTitle();
         this.campStartDate = campaignHashtag.getCampaign().getStartDate();
         this.campClosingDate = campaignHashtag.getCampaign().getClosingDate();
