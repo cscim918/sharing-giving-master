@@ -7,6 +7,7 @@ import curation.sharinggiving.service.OrganizationService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ public class SearchApiController {
     private final CampaignService campaignService;
     private final OrganizationService organizationService;
 
+    @CrossOrigin("*")
     @GetMapping("/api/v1/search")
     public Result findByCampaign(@RequestParam(value = "keyword") String keyword){
         List<CampResponseDto> searchCampaign = campaignService.searchCampaign(keyword);
